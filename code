@@ -1,0 +1,42 @@
+#include <Servo.h> 
+// Declare the Servo pin 
+int servoPin = 9; 
+// Create a servo object 
+Servo Servo1; 
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(8,INPUT);
+  pinMode(A0, INPUT);
+  Servo1.attach(servoPin); 
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int value = digitalRead(A0);
+  int val = analogRead(A0);
+  int metal = digitalRead(8);
+  Serial.println(metal);
+  Serial.println(val);
+  Serial.println(value);
+  if (metal == 0){
+    Serial.println("Metal detected");
+    // Make servo go to 0 degrees 
+    Servo1.write(0); 
+
+  }
+  else if (value == 0  && metal == 1){
+    Serial.println("glass detected");
+    // Make servo go to 90 degrees 
+    Servo1.write(90); 
+  }
+  else{
+    Serial.println("plastic detected");
+    // Make servo go to 180 degrees 
+    Servo1.write(180); 
+  }
+  delay(2000);
+
+}
